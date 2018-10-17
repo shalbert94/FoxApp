@@ -16,7 +16,7 @@ import retrofit2.Response
 /**
  * Interacts with [Server]
  */
-class MockServerRepository {
+object MockServerRepository {
     private val TAG = MockServerRepository::class.java.simpleName
 
 

@@ -8,6 +8,6 @@ class MainViewModel: ViewModel() {
     val usersLiveData = MutableLiveData<List<User>>()
 
     fun getUsers() {
-        MockServerRepository().getUsers(usersLiveData)
+        MockServerRepository.getUsers(usersLiveData)
     }
 }
