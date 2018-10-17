@@ -55,4 +55,9 @@ object MockServerRepository {
 
     }
 
+    //Todo: Make asynchronous
+     fun getInfiniteList(): List<User> = runBlocking {
+         server.await().getInfiniteList()
+    }
+
 }
