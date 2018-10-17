@@ -8,6 +8,7 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,10 +19,11 @@ import retrofit2.Response
 class MockServerRepository {
     private val TAG = MockServerRepository::class.java.simpleName
 
-    val server = Server()
 
-    fun getUsers(liveData: MutableLiveData<List<User>>) = launch(UI) {
-        server.getUsers().enqueue(object: Callback<List<User>> {
+    fun getUsers(liveData: MutableLiveData<List<User>>) = runBlocking {
+        val server = async{ Server() }
+
+        server.await().getUsers().enqueue(object: Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 when (response.isSuccessful) {
                     true -> liveData.postValue(response.body())
