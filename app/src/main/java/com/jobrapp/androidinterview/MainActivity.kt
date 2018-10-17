@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,12 +20,21 @@ class MainActivity : AppCompatActivity() {
             adapter = UserAdapter()
         }
 
-        viewModel.usersLiveData.observe(this, Observer {
+        //Todo: Place in a separate method
+
+//        viewModel.usersLiveData.observe(this, Observer {
+//            val adapter = recyclerView.adapter as UserAdapter
+//            adapter.addUsers(it!!)
+//        })
+//        viewModel.getUsers()
+
+
+        viewModel.defferedUsersLiveDate.observe(this, Observer {
             val adapter = recyclerView.adapter as UserAdapter
             adapter.addUsers(it!!)
         })
 
-        viewModel.getUsers()
-
+        viewModel.getDefferedUsers()
     }
+
 }
