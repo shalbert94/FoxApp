@@ -13,7 +13,8 @@ import retrofit2.Response
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
 class ServerTest {
-    @Test fun getDeferredUsers() {
+    @Test
+    fun getDeferredUsers() {
         val server = Server()
         runBlocking {
             val users = server.getDeferredUsers().await()
@@ -21,7 +22,9 @@ class ServerTest {
             assertEquals(1, users.size)
         }
     }
-    @Test fun getUsers() {
+
+    @Test
+    fun getUsers() {
         val server = Server()
         runBlocking {
             val call = server.getUsers()
@@ -38,5 +41,12 @@ class ServerTest {
 
             })
         }
+    }
+
+    @Test
+    fun getInfiniteList() {
+        val server = Server()
+        val users = server.getInfiniteList()
+        assertEquals(users.size, Server.PAGE_SIZE + 1)
     }
 }

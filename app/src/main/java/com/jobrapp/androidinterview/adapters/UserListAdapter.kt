@@ -15,7 +15,7 @@ import com.jobrapp.server.User
 import kotlinx.android.synthetic.main.list_item.view.*
 
 /**
- * Adapter for [MainActivity]'s [RecyclerView]
+ * [MainActivity]'s [RecyclerView] that uses the Paging Library
  */
 class UserListAdapter : PagedListAdapter<User, UserListAdapter.UserListViewHolder>(diffCallback) {
 

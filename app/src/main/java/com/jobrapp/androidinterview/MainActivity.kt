@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView
 import com.jobrapp.androidinterview.adapters.UserAdapter
 import com.jobrapp.androidinterview.adapters.UserListAdapter
 
+/**
+ * Hosts the single [RecyclerView] in this app
+ */
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,27 +21,45 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        //Applies to getUsers() and getDefferedUsers()
-//        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = UserAdapter()
-//        }
-
-        //Todo: Place in a separate method
-
-//        viewModel.usersLiveData.observe(this, Observer {
-//            val adapter = recyclerView.adapter as UserAdapter
-//            adapter.addUsers(it!!)
-//        })
-//        viewModel.getUsers()
+        //Todo: Uncomment one of the three following functions to test out the callbacks
+        getUsers(viewModel)
+//        getDefferedUsers(viewModel)
+//        getInfiniteList(viewModel)
 
 
-//        viewModel.defferedUsersLiveDate.observe(this, Observer {
-//            val adapter = recyclerView.adapter as UserAdapter
-//            adapter.addUsers(it!!)
-//        })
-//        viewModel.getDefferedUsers()
+    }
 
+    /** Populates [RecyclerView] using the getUsers() callback */
+    fun getUsers(viewModel: MainViewModel) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = UserAdapter()
+        }
+
+
+        viewModel.usersLiveData.observe(this, Observer {
+            val adapter = recyclerView.adapter as UserAdapter
+            adapter.addUsers(it!!)
+        })
+        viewModel.getUsers()
+    }
+
+    /** Populates [RecyclerView] using the getDefferedUsers() callback */
+    fun getDefferedUsers(viewModel: MainViewModel) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = UserAdapter()
+        }
+
+        viewModel.defferedUsersLiveDate.observe(this, Observer {
+            val adapter = recyclerView.adapter as UserAdapter
+            adapter.addUsers(it!!)
+        })
+        viewModel.getDefferedUsers()
+    }
+
+    /** Populates [RecyclerView] using the getInfiniteList() callback */
+    fun getInfiniteList(viewModel: MainViewModel) {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
             layoutManager = LinearLayoutManager(context)
             hasFixedSize()
@@ -48,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             val adapter = recyclerView.adapter as UserListAdapter
             adapter.submitList(it)
         })
-
     }
 
 }

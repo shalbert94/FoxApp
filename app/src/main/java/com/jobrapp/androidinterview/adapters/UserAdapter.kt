@@ -12,7 +12,7 @@ import com.jobrapp.server.User
 import kotlinx.android.synthetic.main.list_item.view.*
 
 /**
- * Adapter for [MainActivity]'s [RecyclerView]
+ * [MainActivity]'s [RecyclerView]
  */
 class UserAdapter: RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     var users: List<User> = listOf()
